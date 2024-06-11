@@ -43,4 +43,4 @@ Resources:
       CidrBlock: !Ref PublicSubnet1CIDR
       Tags:
         - Key: Name
-          Value: !Sub ${EnvironmentName} Public Subnet 1
+          Value: Public Subnet 1 - Edit
