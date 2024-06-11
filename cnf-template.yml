@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Proyecto para crear un Wordpress usando EC2, ALB, ALB, RDS, EFS Y ROYTE 53
+
+#------------------- VPC Y SUBRED ------------------------------------------
+
+Parameters: 
+  EnvironmentName:
+    Description: Nombre para el proyecto
+    Type: String
+  
+  VpcCIDR:
+    Description: Por favor ingrese un rango de IP para esta VPC
+    Default: 10.0.0.0/16
+    Type: String
+
+  PublicSubnet1CIDR:
+    Description: Por favor ingrese el rango de IP para la 1 subred publica
+    Type: String
+    Default: 10.0.0.0/24
+
+#-----------------------------------------------------------------------------------------
+
+Resources: 
+#------------------------------------ VPC -----------------------------------------------
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCIDR
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref EnvironmentName
+#----------------------------------------------------------------------------------------
+
+#--------------------------------------- SUBNETS ----------------------------------------
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select [0, !GetAZs '']
+      VpcId: !Ref VPC
+      CidrBlock: !Ref PublicSubnet1CIDR
+      Tags:
+        - Key: Name
+          Value: !Sub ${EnvironmentName} Public Subnet 1
