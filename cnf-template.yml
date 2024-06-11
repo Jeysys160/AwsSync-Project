@@ -7,6 +7,7 @@ Parameters:
   EnvironmentName:
     Description: Nombre para el proyecto
     Type: String
+    Default: Test GitHub Actions
   
   VpcCIDR:
     Description: Por favor ingrese un rango de IP para esta VPC
